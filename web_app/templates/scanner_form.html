@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Initiate Cloud Scan</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=JetBrains+Mono&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; background: #0f172a; color: #e2e8f0; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; }
+        
+        .back-button {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            background: rgba(30, 41, 59, 0.5);
+            color: #94a3b8;
+            padding: 8px 15px;
+            border-radius: 50px;
+            text-decoration: none;
+            backdrop-filter: blur(10px);
+            border: 1px solid #334155;
+            transition: all 0.2s;
+            z-index: 100;
+        }
+        .back-button:hover {
+            background: #1e293b;
+            color: white;
+        }
+
+        /* FORM CARD */
+        .scan-card { background: #1e293b; padding: 40px; border-radius: 12px; border: 1px solid #334155; width: 400px; box-shadow: 0 10px 25px rgba(0,0,0,0.5); }
+        h2 { margin-top: 0; color: #38bdf8; }
+        label { display: block; margin-top: 15px; font-size: 0.9em; color: #94a3b8; }
+        input { width: 100%; padding: 12px; margin-top: 8px; background: #0f172a; border: 1px solid #334155; color: white; border-radius: 6px; box-sizing: border-box; }
+        input:focus { border-color: #38bdf8; outline: none; }
+        
+        .btn-scan { width: 100%; margin-top: 25px; padding: 14px; background: #38bdf8; color: #0f172a; border: none; font-weight: bold; border-radius: 6px; cursor: pointer; transition: 0.2s; }
+        .btn-scan:hover { background: #0ea5e9; }
+
+        /* LOADING TERMINAL (Hidden by default) */
+        #terminal-loader { display: none; width: 500px; background: #000; padding: 20px; border-radius: 8px; font-family: 'JetBrains Mono', monospace; border: 1px solid #22c55e; box-shadow: 0 0 20px rgba(34, 197, 94, 0.2); }
+        .log-line { margin: 5px 0; opacity: 0; animation: fadeIn 0.3s forwards; }
+        .success { color: #22c55e; }
+        .info { color: #38bdf8; }
+        .warning { color: #facc15; }
+
+        @keyframes fadeIn { to { opacity: 1; } }
+    </style>
+</head>
+<body>
+
+    <a href="javascript:history.back()" class="back-button">‹ Back</a>
+
+    <div class="scan-card" id="input-section">
+        <h2>🚀 Configure Scan</h2>
+        <p style="font-size: 0.85em; color: #94a3b8;">Enter read-only credentials to audit your cloud posture against CIS Benchmarks.</p>
+        
+        <form method="POST" onsubmit="startScan()">
+            <label>AWS Access Key ID</label>
+            <input type="text" name="access_key" placeholder="AKIA..." required>
+
+            <label>AWS Secret Access Key</label>
+            <input type="password" name="secret_key" placeholder="SECRET..." required>
+
+            <button type="submit" class="btn-scan">START SECURITY AUDIT</button>
+        </form>
+    </div>
+
+    <div id="terminal-loader">
+        <div style="border-bottom: 1px solid #333; padding-bottom: 10px; margin-bottom: 10px; color: #666;">
+            root@cloud-sentinel:~# ./run_audit.sh
+        </div>
+        <div id="logs"></div>
+    </div>
+
+    <script>
+        function startScan() {
+            // Hide Form, Show Terminal
+            document.getElementById('input-section').style.display = 'none';
+            document.getElementById('terminal-loader').style.display = 'block';
+
+            const logs = [
+                { text: "[INIT] Initializing Cloud Sentinel Engine v1.0...", type: "info", delay: 100 },
+                { text: "[AUTH] Validating IAM Credentials...", type: "info", delay: 800 },
+                { text: "[CONNECT] Establishing secure session with us-east-1...", type: "success", delay: 1500 },
+                { text: "[AUDIT] Fetching S3 Bucket Policies...", type: "warning", delay: 2200 },
+                { text: "[AUDIT] Analyzing Security Groups (Port 22, 3389)...", type: "warning", delay: 3000 },
+                { text: "[COMPLIANCE] Comparing against CIS Benchmarks...", type: "info", delay: 4500 },
+                { text: "[FINALIZE] Generating Risk Report...", type: "success", delay: 5500 }
+            ];
+
+            const logContainer = document.getElementById('logs');
+            
+            logs.forEach(log => {
+                setTimeout(() => {
+                    const div = document.createElement('div');
+                    div.className = `log-line ${log.type}`;
+                    div.innerText = `> ${log.text}`;
+                    logContainer.appendChild(div);
+                }, log.delay);
+            });
+        }
+    </script>
+</body>
+</html>

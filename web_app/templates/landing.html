@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Cloud Sentinel - Proactive Cloud Security</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #0f172a;
+            color: #e2e8f0;
+            margin: 0;
+            overflow-x: hidden;
+        }
+        .background-animation {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            background: linear-gradient(45deg, #0f172a, #1e293b, #334155, #38bdf8);
+            background-size: 400% 400%;
+            animation: gradientAnimation 15s ease infinite;
+        }
+        @keyframes gradientAnimation {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            padding: 60px 20px;
+            position: relative;
+            z-index: 1;
+        }
+        .back-button {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            background: rgba(30, 41, 59, 0.5);
+            color: #94a3b8;
+            padding: 8px 15px;
+            border-radius: 50px;
+            text-decoration: none;
+            backdrop-filter: blur(10px);
+            border: 1px solid #334155;
+            transition: all 0.2s;
+            z-index: 100;
+        }
+        .back-button:hover {
+            background: #1e293b;
+            color: white;
+        }
+        .header {
+            border: 1px solid rgba(51, 65, 85, 0.5);
+            padding: 10px 20px;
+            border-radius: 50px;
+            background: rgba(30, 41, 59, 0.7);
+            backdrop-filter: blur(10px);
+            margin-bottom: 40px;
+        }
+        h1 {
+            font-size: 4.5rem;
+            font-weight: 800;
+            margin: 0;
+            background: linear-gradient(90deg, #7dd3fc, #a5b4fc);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 0 20px rgba(56, 189, 248, 0.3);
+        }
+        .subtitle {
+            font-size: 1.25rem;
+            color: #cbd5e1;
+            max-width: 650px;
+            margin: 25px auto;
+            line-height: 1.6;
+        }
+        .cta-button {
+            margin-top: 30px;
+            padding: 18px 40px;
+            background: #38bdf8;
+            color: #0f172a;
+            border: none;
+            font-weight: bold;
+            font-size: 1.1rem;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+            text-decoration: none;
+        }
+        .cta-button:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 25px rgba(56, 189, 248, 0.25);
+        }
+        .features {
+            display: flex;
+            gap: 25px;
+            margin-top: 80px;
+            max-width: 1000px;
+        }
+        .feature-card {
+            background: rgba(30, 41, 59, 0.7);
+            padding: 35px;
+            border-radius: 16px;
+            border: 1px solid rgba(51, 65, 85, 0.5);
+            backdrop-filter: blur(10px);
+            flex: 1;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        .feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+        }
+        .feature-card h3 {
+            color: #7dd3fc;
+            margin-top: 0;
+            font-size: 1.5rem;
+        }
+        .feature-card p {
+            color: #cbd5e1;
+            font-size: 1rem;
+            line-height: 1.5;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="background-animation"></div>
+    <a href="javascript:history.back()" class="back-button">‹ Back</a>
+
+    <div class="container">
+        <div class="header">
+            <span>🚀 Automated Cloud Security Posture Management</span>
+        </div>
+
+        <h1>Uncover Hidden Risks.</h1>
+        <p class="subtitle">
+            Cloud Sentinel is a fast, open-source security scanner that audits your AWS environment against CIS benchmarks to identify misconfigurations before they become a threat.
+        </p>
+
+        <a href="{{ url_for('scan') }}" class="cta-button">Begin Your Free Audit</a>
+
+        <div class="features">
+            <div class="feature-card">
+                <h3>Comprehensive Scans</h3>
+                <p>Analyze S3 bucket policies, EC2 security groups, and IAM roles to find vulnerabilities.</p>
+            </div>
+            <div class="feature-card">
+                <h3>Actionable Insights</h3>
+                <p>Get a clear security score and a detailed breakdown of findings with remediation guidance.</p>
+            </div>
+            <div class="feature-card">
+                <h3>Developer-Friendly</h3>
+                <p>Integrate security into your workflow with both a user-friendly web UI and a powerful CLI tool.</p>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>
